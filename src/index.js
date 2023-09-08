@@ -60,6 +60,22 @@ app.get('/saveText/:sometext', async (req, res) => {
     // return "Success";
     res.send('Success');
 
+});
+
+app.get('/saveImage', async (req, res) => {
+    const drive = google.drive({ version: 'v3', auth: oauth2Client });
+    drive.files.create({
+        requestBody: {
+            name: 'uploaded.jpg',
+            mimeType: 'image/jpeg'
+        },
+        media: {
+            mimeType: 'image/jpeg',
+            body: fs.createReadStream('Sunflower_from_Silesia2.jpg')
+        }
+    });
+
+    res.send('Success');
 })
 
 app.listen(PORT, () => {
